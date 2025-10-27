@@ -147,7 +147,7 @@ function DesktopMenu() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/trainings">
-            Trainings & Workshop
+            Trainings & Workshops
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
