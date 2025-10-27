@@ -88,10 +88,10 @@ function MobileMenu({ user }: { user: User | null }) {
 
           {/* Mobile Links */}
           <MobileMenuItem href="/" label="Home" />
-          <MobileMenuItem href="/trainings" label="Trainings" />
           <MobileMenuItem href="/products" label="Products" />
           <MobileMenuItem href="/services" label="Services" />
           <MobileMenuItem href="/careers" label="Careers" />
+          <MobileMenuItem href="/trainings" label="Trainings" />      
           <MobileMenuItem href="/about-us" label="About Us" />
           <MobileMenuItem href="/contact-us" label="Contact Us" />
 
@@ -136,11 +136,6 @@ function DesktopMenu() {
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/trainings">
-            Trainings
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
           <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/products">
             Products
           </NavigationMenuLink>
@@ -148,6 +143,11 @@ function DesktopMenu() {
         <NavigationMenuItem>
           <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/services">
             Services
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/trainings">
+            Trainings & Workshop
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
