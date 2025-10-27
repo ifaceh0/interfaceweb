@@ -8,11 +8,9 @@ import { Menu, Package2, ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet"
@@ -52,7 +50,7 @@ export function Navbar() {
   }
 
   return (
-    <nav className="fixed top-0 inset-x-0 z-50 bg-background p-3">
+    <nav className="fixed top-0 inset-x-0 z-50 bg-background p-3 shadow-sm">
       <div className="mx-auto flex items-center justify-between">
         <MobileMenu user={user} />
         <Logo />
@@ -71,6 +69,7 @@ function Logo() {
   )
 }
 
+// ✅ Mobile version menu
 function MobileMenu({ user }: { user: User | null }) {
   return (
     <Sheet>
@@ -84,25 +83,31 @@ function MobileMenu({ user }: { user: User | null }) {
         <nav className="grid gap-6 text-lg font-medium">
           <Link href="/" className="flex items-center gap-2 text-lg font-semibold">
             <Package2 className="h-6 w-6" />
-            <span className="sr-only">Interface Hub</span>
+            <span>Interface Hub</span>
           </Link>
+
+          {/* Mobile Links */}
           <MobileMenuItem href="/" label="Home" />
-          <MobileAccordionItem title="Offerings">
-            <MobileMenuItem href="/courses" label="Training & Workshops" />
-            <MobileMenuItem href="/products" label="Products" />
-            <MobileMenuItem href="/services" label="Services" />
-          </MobileAccordionItem>
+          <MobileMenuItem href="/trainings" label="Trainings" />
+          <MobileMenuItem href="/products" label="Products" />
+          <MobileMenuItem href="/services" label="Services" />
           <MobileMenuItem href="/careers" label="Careers" />
           <MobileMenuItem href="/about-us" label="About Us" />
           <MobileMenuItem href="/contact-us" label="Contact Us" />
+
           {user?.role === 1 && (
-            <MobileAccordionItem title="Dashboard">
-              <MobileMenuItem href="/admin/dashboard" label="Home" />
-              <MobileMenuItem href="/admin/dashboard/enrollments" label="Enrollments" />
-              <MobileMenuItem href="/admin/dashboard/sessions" label="Session" />
-              <MobileMenuItem href="/admin/dashboard/courses" label="Courses" />
-              <MobileMenuItem href="/admin/dashboard/users" label="Users" />
-            </MobileAccordionItem>
+            <Accordion type="single" collapsible>
+              <AccordionItem value="dashboard">
+                <AccordionTrigger className="text-lg">Dashboard</AccordionTrigger>
+                <AccordionContent className="grid gap-y-2 pl-4">
+                  <MobileMenuItem href="/admin/dashboard" label="Home" />
+                  <MobileMenuItem href="/admin/dashboard/enrollments" label="Enrollments" />
+                  <MobileMenuItem href="/admin/dashboard/sessions" label="Sessions" />
+                  <MobileMenuItem href="/admin/dashboard/courses" label="Courses" />
+                  <MobileMenuItem href="/admin/dashboard/users" label="Users" />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           )}
         </nav>
       </SheetContent>
@@ -120,43 +125,30 @@ function MobileMenuItem({ href, label }: { href: string; label: string }) {
   )
 }
 
-function MobileAccordionItem({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <Accordion type="single" collapsible>
-      <AccordionItem value="item-1">
-        <AccordionTrigger className="text-muted-foreground text-lg hover:text-foreground h-2">
-          {title}
-        </AccordionTrigger>
-        <AccordionContent className="grid gap-y-2 text-lg font-medium pl-4">{children}</AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  )
-}
-
+// ✅ Desktop menu (simplified: no “Offerings” dropdown)
 function DesktopMenu() {
   return (
     <NavigationMenu className="hidden md:flex">
-      <NavigationMenuList className="flex items-center space-x-4">
+      <NavigationMenuList className="flex items-center space-x-6">
         <NavigationMenuItem>
           <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/">
             Home
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Offerings</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              <DesktopMenuItem href="/trainings" label="Trainings" />
-              <DesktopMenuItem
-                href="/courses"
-                label="Workshops"
-                description="Coming soon"
-                className="text-gray-400"
-              />
-              <DesktopMenuItem href="/products" label="Products" />
-              <DesktopMenuItem href="/services" label="Services" />
-            </ul>
-          </NavigationMenuContent>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/trainings">
+            Trainings
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/products">
+            Products
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/services">
+            Services
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink className={navigationMenuTriggerStyle()} href="/careers">
@@ -178,31 +170,7 @@ function DesktopMenu() {
   )
 }
 
-function DesktopMenuItem({
-  href,
-  label,
-  description,
-  className,
-}: {
-  href: string
-  label: string
-  description?: string
-  className?: string
-}) {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <Link href={href} className={navigationMenuTriggerStyle() + " " + className}>
-          <div>
-            {description && <p className="text-[10px] text-primary">{description}</p>}
-            {label}
-          </div>
-        </Link>
-      </NavigationMenuLink>
-    </li>
-  )
-}
-
+// ✅ Right-side user & cart section
 function UserSection({
   user,
   cartCount,
