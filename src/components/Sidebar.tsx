@@ -8,8 +8,9 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 const products = [
     { id: 'referral', name: 'Referral App', path: '/products/referral_app' },
     { id: 'coupon', name: 'Coupon App', path: '/products/coupon_App' },
-  { id: 'community', name: 'Community App', path: '/products/community_app' },
     { id: 'loyalty', name: 'Loyalty App', path: '/products/loyalty_app' },
+  { id: 'community', name: 'Community App', path: '/products/community_app' },
+    
 
 ]
 

@@ -1,10 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { CheckCircle, Shield, Star, Award, ThumbsUp } from "lucide-react"
-import { useState } from "react"
 
 // --- ICONS ---
 const CommunityFeatureIcon = ({ name }: { name: string }) => {
@@ -44,10 +44,23 @@ const communityAppData = {
         "Your payments are secure and only released when you're satisfied with the work.",
     },
   ],
+  benefits: [
+    { title: "Verified Community", description: "All members are verified for authenticity and trustworthiness." },
+    { title: "Quality Service", description: "High-quality interactions and transactions ensured through regular checks." },
+    { title: "User Safety", description: "Advanced protection and moderation keep the platform safe for everyone." },
+    { title: "Instant Support", description: "Get quick help anytime with our responsive support system." },
+  ],
+  whyChooseUs: [
+    "A platform built on trust and transparency.",
+    "100% secure transactions for peace of mind.",
+    "Regular service audits to maintain quality standards.",
+    "User-first approach to community building.",
+  ],
+  externalLink: "http://parttimer.vercel.app",
 }
 
 export default function CommunityApp() {
-  const { title, description, keyFeatures } = communityAppData
+  const { title, description, keyFeatures, benefits, whyChooseUs, externalLink } = communityAppData
   const [activeTab, setActiveTab] = useState("overview")
 
   return (
@@ -76,18 +89,28 @@ export default function CommunityApp() {
               {/* Left Text Section */}
               <div className="md:w-1/2 space-y-6 z-10">
                 <h1 className="text-5xl md:text-6xl font-bold leading-tight">
-                  Welcome to our <br />
-                  <span className="text-cyan-300">Community App</span>
+                  Connect & Grow with <br />
+                  <span className="text-cyan-300">Community Connect</span>
                 </h1>
                 <p className="text-lg text-blue-100 max-w-md">
                   Build trust and connect with verified members through quality-driven interactions and secure services.
                 </p>
-                <Button
-                  onClick={() => setActiveTab("details")}
-                  className="bg-white text-blue-600 hover:bg-blue-100 font-semibold px-6 py-3 rounded-full transition-all duration-300"
-                >
-                  Learn More
-                </Button>
+                <div className="flex gap-4">
+                  <Button
+                    onClick={() => setActiveTab("details")}
+                    className="bg-white text-blue-600 hover:bg-blue-100 font-semibold px-6 py-3 rounded-full transition-all duration-300"
+                  >
+                    Learn More
+                  </Button>
+                  <Button
+                    asChild
+                    className="bg-cyan-300 text-blue-900 hover:bg-cyan-200 font-semibold px-6 py-3 rounded-full transition-all duration-300"
+                  >
+                    <a href={externalLink} target="_blank" rel="noopener noreferrer">
+                      Visit Website
+                    </a>
+                  </Button>
+                </div>
               </div>
 
               {/* Right Image Section */}
@@ -95,7 +118,7 @@ export default function CommunityApp() {
                 <div
                   className="w-full h-80 md:h-96 bg-center bg-no-repeat bg-contain"
                   style={{
-                    backgroundImage: "url('/community.jpg')", // <-- Replace with your image file name
+                    backgroundImage: "url('/community.jpg')",
                   }}
                 ></div>
               </div>
@@ -104,35 +127,91 @@ export default function CommunityApp() {
 
           {/* === DETAILS === */}
           <TabsContent value="details">
-            <div className="min-h-screen bg-blue-50 text-gray-800 py-20 px-4 rounded-xl shadow-inner">
-              <div className="max-w-6xl mx-auto text-center mb-16">
-                <h2 className="text-4xl font-bold text-blue-800 mb-4">Our Quality Guarantee</h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                  We’re committed to maintaining high-quality standards to ensure satisfaction and trust within our community.
+            <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-blue-500 to-cyan-400 text-white py-20 px-4 rounded-xl shadow-lg">
+              <div className="max-w-6xl mx-auto animate-fadeIn">
+                <h1 className="text-5xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-cyan-200">
+                  {title}
+                </h1>
+                <p className="text-2xl text-center max-w-3xl mx-auto text-blue-100 mb-10">
+                  {description}
                 </p>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {keyFeatures.map((feature, index) => (
-                  <Card
-                    key={index}
-                    className="bg-white border-none shadow-md hover:shadow-lg transition-all duration-300"
-                  >
-                    <CardHeader>
-                      <div className="flex items-center gap-3">
-                        <CommunityFeatureIcon name={feature.title} />
-                        <CardTitle className="text-lg font-semibold text-blue-800">
-                          {feature.title}
-                        </CardTitle>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <CardDescription className="text-gray-600">
-                        {feature.description}
-                      </CardDescription>
-                    </CardContent>
-                  </Card>
-                ))}
+                <Tabs defaultValue="features" className="w-full">
+                  <TabsList className="grid w-full grid-cols-3 mb-12 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-full p-2">
+                    {['features', 'benefits', 'whyUs'].map((tab) => (
+                      <TabsTrigger
+                        key={tab}
+                        value={tab}
+                        className="rounded-full text-white data-[state=active]:bg-white data-[state=active]:text-blue-600 transition-all duration-300"
+                      >
+                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+
+                  {/* === FEATURES === */}
+                  <TabsContent value="features">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {keyFeatures.map((feature, index) => (
+                        <Card
+                          key={index}
+                          className="bg-white bg-opacity-90 border-none hover:bg-opacity-100 transition-all duration-300"
+                        >
+                          <CardHeader>
+                            <div className="flex items-center justify-between">
+                              <CardTitle className="text-xl font-semibold text-blue-700">{feature.title}</CardTitle>
+                              <CommunityFeatureIcon name={feature.title} />
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <CardDescription className="text-gray-700">{feature.description}</CardDescription>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </TabsContent>
+
+                  {/* === BENEFITS === */}
+                  <TabsContent value="benefits">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {benefits.map((benefit, index) => (
+                        <Card
+                          key={index}
+                          className="bg-white bg-opacity-90 border-none hover:bg-opacity-100 transition-all duration-300"
+                        >
+                          <CardHeader>
+                            <CardTitle className="flex items-center text-xl font-semibold text-blue-700">
+                              <Star className="mr-2 h-6 w-6 text-cyan-400" />
+                              {benefit.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <CardDescription className="text-gray-700">{benefit.description}</CardDescription>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </TabsContent>
+
+                  {/* === WHY US === */}
+                  <TabsContent value="whyUs">
+                    <Card className="bg-white bg-opacity-90 border-none">
+                      <CardHeader>
+                        <CardTitle className="text-2xl font-bold text-blue-700">Why Choose Community Connect?</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <ul className="space-y-4">
+                          {whyChooseUs.map((reason, index) => (
+                            <li key={index} className="flex items-start">
+                              <CheckCircle className="mr-2 h-6 w-6 text-blue-400 flex-shrink-0 mt-1" />
+                              <span className="text-gray-700">{reason}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </TabsContent>
+                </Tabs>
               </div>
             </div>
           </TabsContent>

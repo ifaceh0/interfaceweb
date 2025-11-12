@@ -105,12 +105,23 @@ export default function LoyaltyApp() {
                 <p className="text-lg text-blue-100 max-w-md">
                   Build meaningful relationships with your customers through powerful loyalty rewards and analytics.
                 </p>
-                <Button
-                  onClick={() => setActiveTab("details")}
-                  className="bg-white text-blue-600 hover:bg-blue-100 font-semibold px-6 py-3 rounded-full transition-all duration-300"
-                >
-                  Learn More
-                </Button>
+
+                {/* === BUTTONS === */}
+                <div className="flex flex-wrap gap-4">
+                  <Button
+                    onClick={() => setActiveTab("details")}
+                    className="bg-white text-blue-600 hover:bg-blue-100 font-semibold px-6 py-3 rounded-full transition-all duration-300"
+                  >
+                    Learn More
+                  </Button>
+
+                  <Button
+                    className="bg-cyan-300 text-blue-900 hover:bg-cyan-200 font-semibold px-6 py-3 rounded-full transition-all duration-300"
+                    onClick={() => window.open("http://loyalty-frontend-mu.vercel.app/", "_blank")}
+                  >
+                    Visit Website
+                  </Button>
+                </div>
               </div>
 
               {/* Right Image Section */}

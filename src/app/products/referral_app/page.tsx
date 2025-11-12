@@ -77,6 +77,7 @@ export default function ReferralSystem() {
           {/* OVERVIEW TAB */}
           <TabsContent value="overview">
             <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-12 py-16 bg-gradient-to-r from-blue-500 via-sky-500 to-indigo-600 text-white rounded-3xl shadow-lg overflow-hidden">
+              
               {/* Left Text Section */}
               <div className="md:w-1/2 space-y-6 z-10">
                 <h1 className="text-5xl md:text-6xl font-bold leading-tight">
@@ -86,12 +87,24 @@ export default function ReferralSystem() {
                 <p className="text-lg text-blue-100 max-w-md">
                   Earn rewards for sharing and help grow your community by spreading opportunities.
                 </p>
-                <Button
-                  onClick={() => setActiveTab("details")}
-                  className="bg-white text-blue-600 hover:bg-blue-100 font-semibold px-6 py-3 rounded-full transition-all duration-300"
-                >
-                  Learn More
-                </Button>
+
+                {/* Buttons Row */}
+                <div className="flex flex-wrap gap-4">
+                  <Button
+                    onClick={() => setActiveTab("details")}
+                    className="bg-white text-blue-600 hover:bg-blue-100 font-semibold px-6 py-3 rounded-full transition-all duration-300"
+                  >
+                    Learn More
+                  </Button>
+
+                  {/* Visit Website Button */}
+                  <Button
+                    onClick={() => window.open("https://referal-couponcode-frontend.vercel.app/", "_blank")}
+                    className="bg-yellow-300 text-blue-900 hover:bg-yellow-200 font-semibold px-6 py-3 rounded-full transition-all duration-300"
+                  >
+                    Visit Website
+                  </Button>
+                </div>
               </div>
 
               {/* Right Image Section */}
@@ -99,7 +112,7 @@ export default function ReferralSystem() {
                 <div
                   className="w-full h-80 md:h-96 bg-center bg-no-repeat bg-contain"
                   style={{
-                    backgroundImage: "url('/referral12.jpg')", // ✅ your image
+                    backgroundImage: "url('/referral12.jpg')",
                   }}
                 ></div>
               </div>
